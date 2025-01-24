@@ -1,0 +1,51 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
+{
+  "name": "POPROX Web/Platform",
+  // "build": {
+  //   "dockerfile": "Dockerfile"
+  // },
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
+    "ghcr.io/jsburckhardt/devcontainer-features/uv:1": {},
+    "ghcr.io/itsmechlark/features/postgresql:1": {},
+    "ghcr.io/robbert229/devcontainer-features/postgresql-client:1": {}
+  },
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [
+    5000
+  ],
+  // Set up mounts for locally-installed software
+  "mounts": [],
+  // Container environment variables
+  // Pre-commit: /usr/local/py-utils/bin
+  // uv: /workspaces/poprox-platform/.venv/bin
+  // Node: /usr/local/share/nvm/versions/node/v22.13.0/bin
+  // Serverless: /workspaces/poprox-platform/node_modules/.bin
+  // Postgres: /usr/lib/postgresql/17/bin
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/usr/local/py-utils/bin:/usr/local/share/nvm/versions/node/v22.13.0/bin:/workspaces/.venv/bin:/workspaces/${localWorkspaceFolderBasename}/poprox-platform/node_modules/.bin:/usr/lib/postgresql/17/bin"
+  },
+  "postCreateCommand": "./.devcontainer/setup.sh",
+
+  // VS Code settings
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "python.terminal.activateEnvInCurrentTerminal": true,
+        "python.defaultInterpreterPath": ".venv/bin/python"
+      }
+    }
+  }
+}
