@@ -1,6 +1,10 @@
 #!/bin/bash
 set -xeo pipefail
 
+# Set up AWS Session Manager
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+sudo dpkg -i session-manager-plugin.deb
+
 # Set up Python environment
 uv venv
 source .venv/bin/activate

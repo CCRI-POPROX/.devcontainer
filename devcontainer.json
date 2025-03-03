@@ -8,6 +8,7 @@
   "image": "mcr.microsoft.com/devcontainers/base:bookworm",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/aws-cli:1.1.0": {},
     "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
     "ghcr.io/jsburckhardt/devcontainer-features/uv:1": {},
     "ghcr.io/itsmechlark/features/postgresql:1": {},
@@ -29,6 +30,7 @@
     "PATH": "${containerEnv:PATH}:/usr/local/py-utils/bin:/usr/local/share/nvm/versions/node/v22.13.0/bin:/workspaces/.venv/bin:/workspaces/${localWorkspaceFolderBasename}/poprox-platform/node_modules/.bin:/usr/lib/postgresql/17/bin"
   },
   "postCreateCommand": "./.devcontainer/setup.sh",
+  "postStartCommand": "./.devcontainer/start.sh",
 
   // VS Code settings
   "customizations": {
