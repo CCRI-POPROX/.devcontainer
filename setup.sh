@@ -45,9 +45,12 @@ popd
 sudo service postgresql start 
 sleep 5
 
-# Create POPROX data and load schema
-createdb poprox
-psql poprox < poprox-storage/dev/dump.sql
+# Create POPROX database and load schema if it doesn't exist
+if ! $(psql -lqt | cut -d \| -f 1 | grep -qw poprox); then
+    createdb poprox
+    psql poprox < poprox-storage/dev/dump.sql
+fi
+
 pushd poprox-storage/poprox-db
 alembic upgrade heads
 popd
