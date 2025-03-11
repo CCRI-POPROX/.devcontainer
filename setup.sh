@@ -2,7 +2,14 @@
 set -xeo pipefail
 
 # Set up AWS Session Manager
-curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+ARCH=$(uname -m)
+if [ "$ARCH" == 'x86_64' ]; then
+    curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+fi
+if [ "$ARCH" == 'aarch64' ]; then
+    curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_arm64/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+fi
+
 sudo dpkg -i session-manager-plugin.deb
 
 # Set up Python environment
