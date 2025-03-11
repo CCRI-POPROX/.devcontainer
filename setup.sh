@@ -17,7 +17,7 @@ uv venv
 source .venv/bin/activate
 
 uv pip install -r poprox-web/requirements.txt
-uv pip install -r poprox-platform/requirements.txt
+uv pip install -e ./poprox-platform
 uv pip install -e ./poprox-storage[dev]
 uv pip install -e ./poprox-concepts
 
