@@ -1,2 +1,2 @@
-aws sso login
-`aws configure export-credentials --format env`
+# aws sso login
+# `aws configure export-credentials --format env`

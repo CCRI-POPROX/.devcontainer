@@ -13,10 +13,20 @@ fi
 sudo dpkg -i session-manager-plugin.deb
 
 # Set up Python environment
+export UV_PROJECT_ENVIRONMENT=`pwd`/.venv
 uv venv
 source .venv/bin/activate
 
 uv pip install -r poprox-web/requirements.txt
+uv pip install -e ./poprox-platform
+
+if [ -e "poprox-recommender/" ]; then
+    cd poprox-recommender/;
+    uv sync --extra cpu --active;
+    cd ..;
+fi
+
+
 uv pip install -e ./poprox-platform
 uv pip install -e ./poprox-storage[dev]
 uv pip install -e ./poprox-concepts
@@ -48,6 +58,13 @@ pre-commit install
 pre-commit install-hooks
 popd
 
+if [ -e "poprox-recommender/" ]; then
+    pushd poprox-recommender;
+    pre-commit install;
+    pre-commit install-hooks;
+    popd;
+fi
+
 # Set up and start Postgres
 sudo service postgresql start 
 sleep 5
@@ -61,3 +78,6 @@ fi
 pushd poprox-storage/poprox-db
 alembic upgrade heads
 popd
+
+echo export UV_PROJECT_ENVIRONMENT=`pwd`/.venv >> ~/.bashrc 
+echo source `pwd`/.venv/bin/activate >> ~/.bashrc 
